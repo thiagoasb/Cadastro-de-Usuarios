@@ -38,12 +38,14 @@ public class DaoUsuario {
 		
 		String sql = "select * from usuario";
 		
-		PreparedStatement statment = connection.prepareStatement(sql);
-		ResultSet resultSet = statment.executeQuery();
+		PreparedStatement statement = connection.prepareStatement(sql);
+		ResultSet resultSet = statement.executeQuery();
+		
 		while(resultSet.next()){
+			
 			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
-			beanCursoJsp.setLogin("login");
-			beanCursoJsp.setSenha("senha");
+			beanCursoJsp.setLogin(resultSet.getString("login"));
+			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			
 			listar.add(beanCursoJsp);
 		}

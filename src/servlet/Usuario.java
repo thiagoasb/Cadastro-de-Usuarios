@@ -36,9 +36,11 @@ public class Usuario extends HttpServlet {
 		daoUsuario.salvar(usuario);
 		
 		try {
+			
 			RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 			request.setAttribute("usuarios", daoUsuario.listar());
 			view.forward(request, response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
