@@ -8,9 +8,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cadastro de usuário</title>
 <link rel="stylesheet" href="resources/css/cadastro.css">
+
 </head>
 <body>
-	<center><h1>Cadastro de usuário</h1></center>	
+	<center>
+		<h1>Cadastro de usuário</h1>
+		<h3 style="color:#ff0000">${msg}</h3>
+	</center>	
 	<form action="salvarUsuario" method="post" id="formUser">
 		<ul class="form-style-1"> <li>
 

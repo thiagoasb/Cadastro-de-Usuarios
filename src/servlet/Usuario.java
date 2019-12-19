@@ -32,27 +32,12 @@ public class Usuario extends HttpServlet {
 			if (acao.equalsIgnoreCase("delete")) {
 				daoUsuario.delete(user);
 				// deleta o usuario e carrega todos os registros
+				// indica para qual tela vai redirecionar
 				RequestDispatcher view = request
-						.getRequestDispatcher("/cadastroUsuario.jsp");// indica
-																		// para
-																		// qual
-																		// tela
-																		// vai
-																		// redirecionar
-				request.setAttribute("usuarios", daoUsuario.listar()); // seta
-																		// no
-																		// atributo
-																		// de
-																		// usuarios
-																		// (usado
-																		// na
-																		// pagina
-																		// jsp),
-																		// toda
-																		// a
-																		// lista
-																		// de
-																		// usuarios
+						.getRequestDispatcher("/cadastroUsuario.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
+				// seta no atributo de usuarios (usado na pagina jsp), toda a
+				// lista de usuarios
 				view.forward(request, response); // terminar a resposta do
 													// navegador
 			} else if (acao.equalsIgnoreCase("editar")) {
@@ -103,13 +88,17 @@ public class Usuario extends HttpServlet {
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
 
-			if (id == null || id.isEmpty()) {
-				daoUsuario.salvar(usuario);
-			} else {
-				daoUsuario.atualizar(usuario);
-			}
-
 			try {
+				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
+					request.setAttribute("msg", "Usuário já cadastrado com este login!");
+				}
+				//valida login
+				if (id == null || id.isEmpty()
+						&& daoUsuario.validarLogin(login)) {
+					daoUsuario.salvar(usuario);
+				} else if(id != null && !id.isEmpty()){
+					daoUsuario.atualizar(usuario);
+				}
 
 				RequestDispatcher view = request
 						.getRequestDispatcher("/cadastroUsuario.jsp");

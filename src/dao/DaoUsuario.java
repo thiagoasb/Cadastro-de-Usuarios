@@ -97,6 +97,20 @@ public class DaoUsuario {
 		}
 		return null;
 	}
+	
+	public boolean validarLogin(String login) throws Exception{
+		String sql = "select count(1) as qtd from usuario where login='"+login+"'";
+		
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.next()){
+					
+			return resultSet.getInt("qtd")<=0; //nao existe login igual, return true
+		}
+		return false;
+	}
+	
 	public void atualizar(BeanCursoJsp usuario) {
 		String sql = "update usuario set login = ?, senha = ?, nome = ? where id = " + usuario.getId();
 		
