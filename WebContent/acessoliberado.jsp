@@ -11,7 +11,8 @@
 	<jsp:setProperty property="*" name="calcula"/>
 	
 	 <h3>Seja bem vindo ao sistema em jsp</h3>
-
-	<a href="cadastroUsuario.jsp">Cadastro de usuários</a>	 
+	
+	<%--salvarUsuario é a url da servlet que sera interceptada --%>
+	<a href="salvarUsuario?acao=listartodos">Cadastro de usuários</a>
 </body>
 </html>

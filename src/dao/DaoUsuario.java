@@ -16,12 +16,14 @@ public class DaoUsuario {
 	public DaoUsuario() {
 		connection = SingleConnection.getConnection();
 	}
+	
 	public void salvar(BeanCursoJsp usuario) {
 		try{
-			String sql = "insert into usuario(login,senha) values (?,?)";
+			String sql = "insert into usuario(login,senha,nome) values (?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
+			insert.setString(3, usuario.getNome());
 			insert.execute();
 			connection.commit();
 		}catch(Exception e){
@@ -41,12 +43,15 @@ public class DaoUsuario {
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultSet = statement.executeQuery();
 		
+		//verifica se o objeto resultSet ainda contem linhas
 		while(resultSet.next()){
 			
 			BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
 			beanCursoJsp.setId(resultSet.getLong("id"));
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
+			beanCursoJsp.setNome(resultSet.getString("nome"));
+
 			
 			listar.add(beanCursoJsp);
 		}
@@ -55,9 +60,9 @@ public class DaoUsuario {
 		
 	}
 	
-	public void delete (String login){
+	public void delete (String id){
 		try {
-			String sql = "delete from usuario where login='"+login+"'";
+			String sql = "delete from usuario where id='"+id+"'";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(sql);
@@ -74,8 +79,8 @@ public class DaoUsuario {
 		}
 	}
 	
-	public BeanCursoJsp consultar(String login) throws Exception{
-		String sql = "select * from usuario where login='"+login+"'";
+	public BeanCursoJsp consultar(String id) throws Exception{
+		String sql = "select * from usuario where id='"+id+"'";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -85,18 +90,21 @@ public class DaoUsuario {
 			beanCursoJsp.setId(resultSet.getLong("id"));
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
+			beanCursoJsp.setNome(resultSet.getString("nome"));
+
 			
 			return beanCursoJsp;
 		}
 		return null;
 	}
 	public void atualizar(BeanCursoJsp usuario) {
-		String sql = "update usuario set login = ?, senha = ? where id = " + usuario.getId();
+		String sql = "update usuario set login = ?, senha = ?, nome = ? where id = " + usuario.getId();
 		
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
+			preparedStatement.setString(3, usuario.getNome());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e){
