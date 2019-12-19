@@ -7,33 +7,65 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cadastro de usuário</title>
+<link rel="stylesheet" href="resources/css/cadastro.css">
 </head>
 <body>
-	<h1>Cadastro de usuário</h1>
+	<center><h1>Cadastro de usuário</h1></center>	
 	<form action="salvarUsuario" method="post">
-		<table>
-			<tr>
-				<td>Login:</td>
-				<td><input type="text" id="login" name="login"></td>
-			</tr>
+		<ul class="form-style-1"> <li>
 
-			<tr>
-				<td>Senha:</td>
-				<td><input type="password" id="senha" name="senha"></td>
-			</tr>
-		</table>
-		<input type="submit" value="salvar">
+			<table>
+				<tr>
+					<td>Código:</td>
+					<td><input type="text" readonly="readonly" id="id" name="id"
+						value="${user.id}" class="field-long"></td>
+				</tr>
 
+				<tr>
+					<td>Login:</td>
+					<td><input type="text" id="login" name="login"
+						value="${user.login}"></td>
+				</tr>
+
+				<tr>
+					<td>Senha:</td>
+					<td><input type="password" id="senha" name="senha"
+						value="${user.senha}"></td>
+				</tr>
+				<tr>
+				<td></td>
+				<td><input type="submit" value="salvar"></td>
+				</tr>
+			</table>
+			<li>
+		</ul>
 	</form>
 
-	<table>
-		<c:forEach items="${usuarios}" var="user">
+	<div class="container">
+		<table class="responsive-table">
+			<caption>Usuários cadastrados:</caption>
 			<tr>
-				<td style="width: 150px"><c:out value="${user.login}"/></td>
-				<td><c:out value="${user.senha}"/></td>
+				<th>Id</th>
+				<th>Login</th>
+				<th>Senha</th>
+				<th>Excluir</th>
+				<th>Editar</th>
 			</tr>
-		</c:forEach>
-	</table>
+			<c:forEach items="${usuarios}" var="user">
+				<tr>
+					<td style="width: 150px"><c:out value="${user.id}" /></td>
+					<td style="width: 150px"><c:out value="${user.login}" /></td>
+					<td><c:out value="${user.senha}" /></td>
+
+					<td><a href="salvarUsuario?acao=delete&user=${user.login}"><img src="resources/img/excluir.png" alt="Excluir" title="Excluir" width="20px" height="20px"></a>
+					</td>
+					<td><a href="salvarUsuario?acao=editar&user=${user.login}"><img src="resources/img/editar.png" alt="Editar" title="Editar" width="20px" height="20px"></a>
+					</td>
+
+				</tr>
+			</c:forEach>
+		</table>
+	</div>
 
 
 </body>
