@@ -17,6 +17,11 @@ public class DaoUsuario {
 		connection = SingleConnection.getConnection();
 	}
 	
+	/**
+	 * Método salvar
+	 * Responsável por salvar um novo usuário
+	 * @param usuario
+	 */
 	public void salvar(BeanCursoJsp usuario) {
 		try{
 			String sql = "insert into usuario(login,senha,nome,email) values (?,?,?,?)";
@@ -110,6 +115,19 @@ public class DaoUsuario {
 		if(resultSet.next()){
 					
 			return resultSet.getInt("qtd")<=0; //nao existe login igual, return true
+		}
+		return false;
+	}
+	
+	public boolean validarLoginUpdate(String login, String id) throws Exception{
+		String sql = "select count(1) as qtde from usuario where login='"+login+"' + and id <> '"+id+"'";
+		
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.next()){
+					
+			return resultSet.getInt("qtde")<=0; //nao existe login igual, return true
 		}
 		return false;
 	}

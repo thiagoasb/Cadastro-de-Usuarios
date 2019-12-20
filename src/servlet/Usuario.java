@@ -91,6 +91,7 @@ public class Usuario extends HttpServlet {
 			usuario.setEmail(email);
 
 			try {
+				/*
 				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
 					request.setAttribute("msg", "Usuário já cadastrado com este login!");
 				}
@@ -98,6 +99,7 @@ public class Usuario extends HttpServlet {
 				if (id == null || id.isEmpty()
 						&& daoUsuario.validarLogin(login)) {
 					daoUsuario.salvar(usuario);
+					
 				} else if(id != null && !id.isEmpty()){
 					daoUsuario.atualizar(usuario);
 				}
@@ -106,11 +108,34 @@ public class Usuario extends HttpServlet {
 						.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
-
+			*/
+				String msg = null;
+				boolean podeInserir = true;
+				
+				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
+					msg = "Usuário já utilizado por outro usuário!";
+				} 
+				
+				if(msg != null){
+					request.setAttribute("msg", msg);
+				}
+				
+				if(id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir){
+					daoUsuario.salvar(usuario);
+				} else if (id != null && !id.isEmpty() && podeInserir){
+					daoUsuario.atualizar(usuario);
+				}
+				
+				RequestDispatcher view = request
+						.getRequestDispatcher("/cadastroUsuario.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
+				view.forward(request, response);
 			} catch (Exception e) {
-				e.printStackTrace();
+				e.printStackTrace();			
+
 			}
 		}
+		
 	}
 
 }
