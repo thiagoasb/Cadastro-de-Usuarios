@@ -13,6 +13,6 @@
 	 <h3>Seja bem vindo ao sistema em jsp</h3>
 	
 	<%--salvarUsuario é a url da servlet que sera interceptada --%>
-	<a href="salvarUsuario?acao=listartodos">Cadastro de usuários</a>
+	<a href="salvarUsuario?acao=listartodos"><img src="resources/img/user.png" alt="Gerenciar usuários" title="Gerenciar usuários" width="40px" height="40px"></a>
 </body>
 </html>

@@ -32,4 +32,7 @@ ALTER TABLE public.usuario
   VALUES(1,'thiago','thiago');
   
   ALTER TABLE public.usuario ADD COLUMN nome character varying(500);
+  
+  ALTER TABLE public.usuario ADD COLUMN email character varying;
+
 

@@ -19,11 +19,12 @@ public class DaoUsuario {
 	
 	public void salvar(BeanCursoJsp usuario) {
 		try{
-			String sql = "insert into usuario(login,senha,nome) values (?,?,?)";
+			String sql = "insert into usuario(login,senha,nome,email) values (?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
+			insert.setString(4, usuario.getEmail());
 			insert.execute();
 			connection.commit();
 		}catch(Exception e){
@@ -38,7 +39,7 @@ public class DaoUsuario {
 	public List<BeanCursoJsp> listar() throws Exception{
 		List<BeanCursoJsp> listar = new ArrayList<BeanCursoJsp>();
 		
-		String sql = "select * from usuario";
+		String sql = "select * from usuario order by id desc";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultSet = statement.executeQuery();
@@ -51,6 +52,7 @@ public class DaoUsuario {
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			beanCursoJsp.setNome(resultSet.getString("nome"));
+			beanCursoJsp.setEmail(resultSet.getString("email"));
 
 			
 			listar.add(beanCursoJsp);
@@ -91,6 +93,7 @@ public class DaoUsuario {
 			beanCursoJsp.setLogin(resultSet.getString("login"));
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			beanCursoJsp.setNome(resultSet.getString("nome"));
+			beanCursoJsp.setEmail(resultSet.getString("email"));
 
 			
 			return beanCursoJsp;
@@ -112,13 +115,14 @@ public class DaoUsuario {
 	}
 	
 	public void atualizar(BeanCursoJsp usuario) {
-		String sql = "update usuario set login = ?, senha = ?, nome = ? where id = " + usuario.getId();
+		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ? where id = " + usuario.getId();
 		
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, usuario.getLogin());
 			preparedStatement.setString(2, usuario.getSenha());
 			preparedStatement.setString(3, usuario.getNome());
+			preparedStatement.setString(4, usuario.getEmail());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e){

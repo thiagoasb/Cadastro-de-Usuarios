@@ -81,12 +81,14 @@ public class Usuario extends HttpServlet {
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 			String nome = request.getParameter("nome");
+			String email = request.getParameter("email");
 
 			BeanCursoJsp usuario = new BeanCursoJsp();
 			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
+			usuario.setEmail(email);
 
 			try {
 				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
