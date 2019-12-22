@@ -112,6 +112,26 @@ public class Usuario extends HttpServlet {
 				*/
 				String msg = null;
 				
+				/*VERIFICAR PREENCHIMENTO DOS CAMPSO*/
+				if(login==null || login.isEmpty()){
+					msg = "Por favor, digite seu login.";
+					request.setAttribute("msg", msg);
+				}
+				else if(senha==null || senha.isEmpty()){
+					msg = "Por favor, digite uma senha";
+					request.setAttribute("msg", msg);
+				}
+				else if(nome==null || nome.isEmpty()){
+					msg = "Por favor, informe seu nome";
+					request.setAttribute("msg", msg);
+				}
+				else if(email==null || email.isEmpty()){
+					msg = "Por favor, informe seu email";
+					request.setAttribute("msg", msg);
+				}
+				
+				
+				/*VERIFICAR SE EXISTE LOGIN JÁ CADASTRADO*/
 				if(!daoUsuario.validarLogin(login) ){
 					msg = "Usuário já cadastrado com esse login!";
 					request.setAttribute("msg", msg);
@@ -124,10 +144,9 @@ public class Usuario extends HttpServlet {
 				} 
 				/*se for uma atualização*/
 				else if(id != null || !id.isEmpty() && msg == null){
-						if(daoUsuario.validarLoginUpdate(login, id)){
-							daoUsuario.atualizar(usuario);
-							System.out.println("Entrou no atualizar!!!");
-						}
+					daoUsuario.atualizar(usuario);
+					System.out.println("Entrou no atualizar!!!");	
+
 				}
 				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");

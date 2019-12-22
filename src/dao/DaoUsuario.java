@@ -126,7 +126,7 @@ public class DaoUsuario {
 	}
 	
 	public boolean validarLoginUpdate(String login, String id) throws Exception{
-		String sql = "select count(1) as qtde from usuario where login='"+login+"' + and id <> '"+id+"'";
+		String sql = "select count(1) as qtde from usuario where login='"+login+"' + and id <> " +id;
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultSet = preparedStatement.executeQuery();
