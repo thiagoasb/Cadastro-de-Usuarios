@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import beans.BeanCursoJsp;
 import dao.DaoUsuario;
 
-@WebServlet("/salvarUsuario")
+@WebServlet("/salvarUsuario") //recebe o action de um formulario
 public class Usuario extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +38,7 @@ public class Usuario extends HttpServlet {
 				request.setAttribute("usuarios", daoUsuario.listar());
 				// seta no atributo de usuarios (usado na pagina jsp), toda a
 				// lista de usuarios
-				view.forward(request, response); // terminar a resposta do
+				view.forward(request, response); // terminar a resposta ao
 													// navegador
 			} else if (acao.equalsIgnoreCase("editar")) {
 				BeanCursoJsp beanCursoJsp = daoUsuario.consultar(user);
@@ -91,6 +91,7 @@ public class Usuario extends HttpServlet {
 			usuario.setEmail(email);
 
 			try {
+				
 				/*
 				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
 					request.setAttribute("msg", "Usuário já cadastrado com este login!");
@@ -108,28 +109,31 @@ public class Usuario extends HttpServlet {
 						.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
-			*/
+				*/
 				String msg = null;
-				boolean podeInserir = true;
 				
-				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
-					msg = "Usuário já utilizado por outro usuário!";
-				} 
-				
-				if(msg != null){
+				if(!daoUsuario.validarLogin(login) ){
+					msg = "Usuário já cadastrado com esse login!";
 					request.setAttribute("msg", msg);
 				}
 				
-				if(id == null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir){
-					daoUsuario.salvar(usuario);
-				} else if (id != null && !id.isEmpty() && podeInserir){
-					daoUsuario.atualizar(usuario);
+				/*se o campo id estiver vazio, ou seja, for um novo usuário*/
+				if(id == null || id.isEmpty() && msg == null){
+						daoUsuario.salvar(usuario);
+						System.out.println("ENTROU NO SALVAR!!!");
+				} 
+				/*se for uma atualização*/
+				else if(id != null || !id.isEmpty() && msg == null){
+						if(daoUsuario.validarLoginUpdate(login, id)){
+							daoUsuario.atualizar(usuario);
+							System.out.println("Entrou no atualizar!!!");
+						}
 				}
 				
-				RequestDispatcher view = request
-						.getRequestDispatcher("/cadastroUsuario.jsp");
+				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");
 				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
+				
 			} catch (Exception e) {
 				e.printStackTrace();			
 

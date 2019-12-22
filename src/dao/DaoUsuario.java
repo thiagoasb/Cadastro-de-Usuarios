@@ -34,7 +34,7 @@ public class DaoUsuario {
 			connection.commit();
 		}catch(Exception e){
 			try {
-				connection.rollback();
+				connection.rollback(); 
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -105,7 +105,13 @@ public class DaoUsuario {
 		}
 		return null;
 	}
-	
+	/**
+	 * Método validarLogin
+	 * Responsável por validar Login, de modo que apenas um usuário possua o mesmo login
+	 * @param login Atributo login do usuário
+	 * @return retorna true se não existir login igual e false caso contrário
+	 * @throws Exception
+	 */
 	public boolean validarLogin(String login) throws Exception{
 		String sql = "select count(1) as qtd from usuario where login='"+login+"'";
 		
@@ -131,7 +137,7 @@ public class DaoUsuario {
 		}
 		return false;
 	}
-	
+		
 	public void atualizar(BeanCursoJsp usuario) {
 		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ? where id = " + usuario.getId();
 		
