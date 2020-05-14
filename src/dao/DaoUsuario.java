@@ -22,14 +22,15 @@ public class DaoUsuario {
 	 * Responsável por salvar um novo usuário
 	 * @param usuario
 	 */
-	public void salvar(BeanCursoJsp usuario) {
+	public void salvar(BeanCursoJsp usuario){
 		try{
-			String sql = "insert into usuario(login,senha,nome,email) values (?,?,?,?)";
+			String sql = "insert into usuario(login,senha,nome,email,fone) values (?,?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
 			insert.setString(4, usuario.getEmail());
+			insert.setString(5, usuario.getFone());
 			insert.execute();
 			connection.commit();
 		}catch(Exception e){
@@ -58,6 +59,7 @@ public class DaoUsuario {
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setEmail(resultSet.getString("email"));
+			beanCursoJsp.setFone(resultSet.getString("fone"));
 
 			
 			listar.add(beanCursoJsp);
@@ -99,6 +101,7 @@ public class DaoUsuario {
 			beanCursoJsp.setSenha(resultSet.getString("senha"));
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setEmail(resultSet.getString("email"));
+			beanCursoJsp.setFone(resultSet.getString("fone"));
 
 			
 			return beanCursoJsp;
@@ -126,7 +129,7 @@ public class DaoUsuario {
 	}
 	
 	public boolean validarLoginUpdate(String login, String id) throws Exception{
-		String sql = "select count(1) as qtde from usuario where login='"+login+"' + and id <> " +id;
+		String sql = "select count(1) as qtde from usuario where login = '"+ login +"' and id <> " +id;
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -139,7 +142,7 @@ public class DaoUsuario {
 	}
 		
 	public void atualizar(BeanCursoJsp usuario) {
-		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ? where id = " + usuario.getId();
+		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ?, fone = ? where id = " + usuario.getId();
 		
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -147,6 +150,7 @@ public class DaoUsuario {
 			preparedStatement.setString(2, usuario.getSenha());
 			preparedStatement.setString(3, usuario.getNome());
 			preparedStatement.setString(4, usuario.getEmail());
+			preparedStatement.setString(5, usuario.getFone());
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e){

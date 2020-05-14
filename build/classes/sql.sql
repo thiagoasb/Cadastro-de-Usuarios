@@ -34,5 +34,8 @@ ALTER TABLE public.usuario
   ALTER TABLE public.usuario ADD COLUMN nome character varying(500);
   
   ALTER TABLE public.usuario ADD COLUMN email character varying;
+  
+  ALTER TABLE public.usuario ADD COLUMN fone character varying;
+
 
 

@@ -82,71 +82,64 @@ public class Usuario extends HttpServlet {
 			String senha = request.getParameter("senha");
 			String nome = request.getParameter("nome");
 			String email = request.getParameter("email");
+			String fone = request.getParameter("fone");
 
 			BeanCursoJsp usuario = new BeanCursoJsp();
-			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : 0);
+			usuario.setId(!id.isEmpty() ? Long.parseLong(id) : null);
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			usuario.setNome(nome);
 			usuario.setEmail(email);
+			usuario.setFone(fone);
 
 			try {
 				
-				/*
-				if(id == null || id.isEmpty() && !daoUsuario.validarLogin(login)){
-					request.setAttribute("msg", "Usuário já cadastrado com este login!");
-				}
-				//valida login
-				if (id == null || id.isEmpty()
-						&& daoUsuario.validarLogin(login)) {
-					daoUsuario.salvar(usuario);
-					
-				} else if(id != null && !id.isEmpty()){
-					daoUsuario.atualizar(usuario);
-				}
-
-				RequestDispatcher view = request
-						.getRequestDispatcher("/cadastroUsuario.jsp");
-				request.setAttribute("usuarios", daoUsuario.listar());
-				view.forward(request, response);
-				*/
 				String msg = null;
+				boolean podeInserir = true;
 				
 				/*VERIFICAR PREENCHIMENTO DOS CAMPSO*/
 				if(login==null || login.isEmpty()){
 					msg = "Por favor, digite seu login.";
-					request.setAttribute("msg", msg);
+					podeInserir = false;
 				}
 				else if(senha==null || senha.isEmpty()){
 					msg = "Por favor, digite uma senha";
-					request.setAttribute("msg", msg);
+					podeInserir = false;
 				}
 				else if(nome==null || nome.isEmpty()){
 					msg = "Por favor, informe seu nome";
-					request.setAttribute("msg", msg);
+					podeInserir = false;
 				}
 				else if(email==null || email.isEmpty()){
 					msg = "Por favor, informe seu email";
-					request.setAttribute("msg", msg);
+					podeInserir = false;
+				}
+				else if(fone==null || fone.isEmpty()){
+					msg = "Por favor, informe o telefone";
+					podeInserir = false;
+				}
+				else if(id==null || id.isEmpty() && !daoUsuario.validarLogin(login)){
+					msg = "Já existe usuário cadastrado com esse login!";
+					podeInserir = false;
 				}
 				
-				
-				/*VERIFICAR SE EXISTE LOGIN JÁ CADASTRADO*/
-				if(!daoUsuario.validarLogin(login) ){
-					msg = "Usuário já cadastrado com esse login!";
+				if(msg != null){
 					request.setAttribute("msg", msg);
 				}
-				
-				/*se o campo id estiver vazio, ou seja, for um novo usuário*/
-				if(id == null || id.isEmpty() && msg == null){
-						daoUsuario.salvar(usuario);
-						System.out.println("ENTROU NO SALVAR!!!");
-				} 
-				/*se for uma atualização*/
-				else if(id != null || !id.isEmpty() && msg == null){
-					daoUsuario.atualizar(usuario);
-					System.out.println("Entrou no atualizar!!!");	
-
+				else if(id==null || id.isEmpty() && daoUsuario.validarLogin(login) && podeInserir){
+					daoUsuario.salvar(usuario);
+					request.setAttribute("msg", "Usuário salvo com sucesso!");
+				}
+				else if(id != null || !id.isEmpty() && podeInserir){
+					if(!daoUsuario.validarLoginUpdate(login, id)){
+						request.setAttribute("msg", "Já existe usuário cadastrado com esse login!");
+					} else {
+						daoUsuario.atualizar(usuario);
+						request.setAttribute("msg", "Usuário atualizado com sucesso!");
+					}
+				}
+				if(!podeInserir){
+					request.setAttribute("user", usuario);
 				}
 				
 				RequestDispatcher view = request.getRequestDispatcher("/cadastroUsuario.jsp");

@@ -7,6 +7,7 @@ public class BeanCursoJsp {
 	private String senha;
 	private String nome;
 	private String email;
+	private String fone;
 	
 	public String getNome() {
 		return nome;
@@ -38,5 +39,11 @@ public class BeanCursoJsp {
 	}
 	public String getEmail() {
 		return email;
+	}
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+	public String getFone() {
+		return fone;
 	}
 }
