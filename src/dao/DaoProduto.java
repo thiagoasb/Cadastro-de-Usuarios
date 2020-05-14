@@ -20,11 +20,13 @@ public class DaoProduto {
 	
 	public void salvar(ProdutoBean produto) {
 		try {
-			String sql = "INSERT INTO produto(nome,qtd,valor) VALUES (?,?,?)";
+			String sql = "INSERT INTO produto(nome,quantidade,valor) VALUES (?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, produto.getNome());
 			insert.setLong(2, produto.getQuantidade());
 			insert.setDouble(3, produto.getValor());
+			insert.execute();
+			connection.commit();
 			
 		} catch (Exception e) {
 			try {
@@ -111,6 +113,17 @@ public class DaoProduto {
 				e1.printStackTrace();
 			}
 		}
+	}
+	
+	public boolean validarNome(String nome) throws Exception {
+		String sql = "SELECT count(1) as qtd FROM produto WHERE nome = '"+nome+"'";
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		if(resultSet.next()) {
+			return resultSet.getInt("qtd") <= 0;
+		}
+		
+		return false;
 	}
 
 }

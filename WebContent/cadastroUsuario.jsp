@@ -11,6 +11,10 @@
 
 </head>
 <body>
+	
+	<a href="acessoliberado.jsp">Início</a>
+	<a href="index.jsp">Sair</a>
+
 	<center>
 		<h1>Cadastro de usuário</h1>
 		<h3 style="color:#ff0000">${msg}</h3>
@@ -56,7 +60,10 @@
 				
 				<tr>
 					<td></td>
-					<td><input type="submit" value="salvar"> <input type="submit" value="Cancelar" onclick="document.getElementById('formUser').action='salvarUsuario?acao=reset'"></td>
+					<td>
+						<input type="submit" value="salvar" onclick="return validarCampos()? true : false;"> 
+						<input type="submit" value="Cancelar" onclick="document.getElementById('formUser').action='salvarUsuario?acao=reset'">
+					</td>
 				</tr>
 			</table>
 			<li>
@@ -83,7 +90,8 @@
 					<td><c:out value="${user.email}" /></td>
 					<td><c:out value="${user.fone}" /></td>
 
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img src="resources/img/excluir.png" alt="Excluir" title="Excluir" width="20px" height="20px"></a>
+					<td>
+						<a href="salvarUsuario?acao=delete&user=${user.id}"><img src="resources/img/excluir.png" alt="Excluir" title="Excluir" width="20px" height="20px"></a>
 					</td>
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img src="resources/img/editar.png" alt="Editar" title="Editar" width="20px" height="20px"></a>
 					</td>
@@ -92,7 +100,29 @@
 			</c:forEach>
 		</table>
 	</div>
-
+	
+	<script type="text/javascript">
+		function validarCampos() {
+			if(document.getElementById("login").value == '') {
+				alert('Informe o Login');
+				return false;
+			}
+			else if(document.getElementById("senha").value == '') {
+				alert('Informe a Senha');
+				return false;
+			} else if(document.getElementById("nome").value == '') {
+				alert('Informe o Nome');
+				return false;
+			} else if(document.getElementById("email").value == '') {
+				alert('Informe o email');
+				return false;
+			} else if(document.getElementById("fone").value == '') {
+				alert('Informe o telefone');
+				return false;
+			} 
+			return true;
+		}
+	</script>
 
 </body>
 </html>

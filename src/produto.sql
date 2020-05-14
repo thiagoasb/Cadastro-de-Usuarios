@@ -1,29 +1,24 @@
--- Table: public.produto
-
--- DROP TABLE public.produto;
-
-CREATE TABLE public.produto
+ CREATE SEQUENCE produtosequence
+  INCREMENT 1
+  MINVALUE 1
+  MAXVALUE 9223372036854775807
+  START 1
+  CACHE 1;
+ALTER TABLE produtosequence
+  OWNER TO postgres;
+  
+------------------------------------
+  CREATE TABLE produto
 (
-  nome character varying,
-  qtde bigint,
-  valor double precision
+  id bigint NOT NULL DEFAULT nextval('produtosequence'::regclass),
+  nome character varying(500),
+  quantidade bigint,
+  valor numeric(10,4),
+  CONSTRAINT produto_pkey PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE public.produto
+ALTER TABLE produto
   OWNER TO postgres;
-
-  -----------------------------
-CREATE SEQUENCE serialprod
-	INCREMENT 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START 82
-	CACHE 1;
-ALTER TABLE serialuser
-	OWNER TO postgres;
-	-------------------------
-ALTER TABLE produto ADD COLUMN id bigint;
-ALTER TABLE produto ALTER COLUMN id SET NOT NULL;
-ALTER TABLE produto ALTER COLUMN id SET DEFAULT nextval('serialprod'::regclass);
+  
