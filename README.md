@@ -1,5 +1,5 @@
 # Cadastro-de-Usuarios
-Projeto que realiza o cadastro de usuários utilizando JSP e banco de dados Postgres.
+Projeto que realiza o cadastro de usuários utilizando JSP e banco de dados PostgreSQL.
 
 Página onde o usuário loga no sistema.
 ![pagina-index](https://user-images.githubusercontent.com/38672183/71551474-749e8d00-29c7-11ea-82ac-61751a4ec4ed.png)
