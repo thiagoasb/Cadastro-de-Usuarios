@@ -8,14 +8,19 @@ public class BeanCursoJsp {
 	private String nome;
 	private String email;
 	private String fone;
+	private String cep;
+	private String rua;
+	private String bairro;
+	private String cidade;
+	private String estado;
+	private String ibge;
 	
-	public String getNome() {
-		return nome;
+	public Long getId() {
+		return id;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setId(Long id) {
+		this.id = id;
 	}
-	
 	public String getLogin() {
 		return login;
 	}
@@ -28,22 +33,61 @@ public class BeanCursoJsp {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Long getId() {
-		return id;
+	public String getNome() {
+		return nome;
 	}
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public String getEmail() {
 		return email;
 	}
-	public void setFone(String fone) {
-		this.fone = fone;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getFone() {
 		return fone;
 	}
+	public void setFone(String fone) {
+		this.fone = fone;
+	}
+	public String getCep() {
+		return cep;
+	}
+	public void setCep(String cep) {
+		this.cep = cep;
+	}
+	public String getRua() {
+		return rua;
+	}
+	public void setRua(String rua) {
+		this.rua = rua;
+	}
+	public void setBairro(String bairro) {
+		this.bairro = bairro;
+	}
+	public String getBairro() {
+		return bairro;
+	}
+	public String getCidade() {
+		return cidade;
+	}
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	public String getIbge() {
+		return ibge;
+	}
+	public void setIbge(String ibge) {
+		this.ibge = ibge;
+	}
+	
+	
+	
 }

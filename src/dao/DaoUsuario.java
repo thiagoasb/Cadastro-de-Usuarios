@@ -24,13 +24,20 @@ public class DaoUsuario {
 	 */
 	public void salvar(BeanCursoJsp usuario){
 		try{
-			String sql = "insert into usuario(login,senha,nome,email,fone) values (?,?,?,?,?)";
+			String sql = "insert into usuario(login,senha,nome,email,fone,cep,rua,bairro,cidade,estado,ibge)"
+					+ " values (?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
 			insert.setString(3, usuario.getNome());
 			insert.setString(4, usuario.getEmail());
 			insert.setString(5, usuario.getFone());
+			insert.setString(6, usuario.getCep());
+			insert.setString(7, usuario.getRua());
+			insert.setString(8, usuario.getBairro());
+			insert.setString(9, usuario.getCidade());
+			insert.setString(10, usuario.getEstado());
+			insert.setString(11, usuario.getIbge());
 			insert.execute();
 			connection.commit();
 		}catch(Exception e){
@@ -60,8 +67,13 @@ public class DaoUsuario {
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setEmail(resultSet.getString("email"));
 			beanCursoJsp.setFone(resultSet.getString("fone"));
+			beanCursoJsp.setCep(resultSet.getString("cep"));
+			beanCursoJsp.setRua(resultSet.getString("rua"));
+			beanCursoJsp.setBairro(resultSet.getString("bairro"));
+			beanCursoJsp.setCidade(resultSet.getString("cidade"));
+			beanCursoJsp.setEstado(resultSet.getString("estado"));
+			beanCursoJsp.setIbge(resultSet.getString("ibge"));
 
-			
 			listar.add(beanCursoJsp);
 		}
 		
@@ -102,6 +114,12 @@ public class DaoUsuario {
 			beanCursoJsp.setNome(resultSet.getString("nome"));
 			beanCursoJsp.setEmail(resultSet.getString("email"));
 			beanCursoJsp.setFone(resultSet.getString("fone"));
+			beanCursoJsp.setCep(resultSet.getString("cep"));
+			beanCursoJsp.setRua(resultSet.getString("rua"));
+			beanCursoJsp.setBairro(resultSet.getString("bairro"));
+			beanCursoJsp.setCidade(resultSet.getString("cidade"));
+			beanCursoJsp.setEstado(resultSet.getString("estado"));
+			beanCursoJsp.setIbge(resultSet.getString("ibge"));
 
 			
 			return beanCursoJsp;
@@ -142,7 +160,7 @@ public class DaoUsuario {
 	}
 		
 	public void atualizar(BeanCursoJsp usuario) {
-		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ?, fone = ? where id = " + usuario.getId();
+		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ?, fone = ?, cep = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, ibge = ? where id = " + usuario.getId();
 		
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -151,6 +169,13 @@ public class DaoUsuario {
 			preparedStatement.setString(3, usuario.getNome());
 			preparedStatement.setString(4, usuario.getEmail());
 			preparedStatement.setString(5, usuario.getFone());
+			preparedStatement.setString(6, usuario.getCep());
+			preparedStatement.setString(7, usuario.getRua());
+			preparedStatement.setString(8, usuario.getBairro());
+			preparedStatement.setString(9, usuario.getCidade());
+			preparedStatement.setString(10, usuario.getEstado());
+			preparedStatement.setString(11, usuario.getIbge());
+			
 			preparedStatement.executeUpdate();
 			connection.commit();
 		} catch (Exception e){

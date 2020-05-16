@@ -37,5 +37,10 @@ ALTER TABLE public.usuario
   
   ALTER TABLE public.usuario ADD COLUMN fone character varying;
 
-
+ALTER TABLE usuario ADD COLUMN cep character varying(200);
+ALTER TABLE usuario ADD COLUMN rua character varying(200);
+ALTER TABLE usuario ADD COLUMN bairro character varying(200);
+ALTER TABLE usuario ADD COLUMN cidade character varying(200);
+ALTER TABLE usuario ADD COLUMN estado character varying(200);
+ALTER TABLE usuario ADD COLUMN ibge character varying(200);
 
