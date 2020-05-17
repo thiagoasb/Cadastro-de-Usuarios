@@ -24,7 +24,7 @@
 		<h1>Cadastro de usuário</h1>
 		<h3 style="color: #ff0000">${msg}</h3>
 	</center>
-	<form action="salvarUsuario" method="post" id="formUser">
+	<form action="salvarUsuario" method="post" id="formUser" enctype="multipart/form-data">
 		<ul class="form-style-1">
 			<li>
 
@@ -36,68 +36,80 @@
 
 						<td>CEP:</td>
 						<td><input type="text" id="cep" name="cep"
-							onblur="consultarCep();" value="${user.cep}"></td>
+							onblur="consultarCep();" value="${user.cep}"
+							placeholder="Informe um CEP válido"></td>
 					</tr>
 
 					<tr>
 						<td>Login:</td>
 						<td><input type="text" id="login" name="login"
-							value="${user.login}"></td>
+							value="${user.login}" placeholder="Escolha um login válido"></td>
 
 						<td>Rua:</td>
 						<td><input type="text" id="rua" name="rua"
-							value="${user.rua}"></td>
+							value="${user.rua}" placeholder="Informe a rua do usuário"></td>
 					</tr>
 
 					<tr>
 						<td>Senha:</td>
 						<td><input type="password" id="senha" name="senha"
-							value="${user.senha}"></td>
+							value="${user.senha}" placeholder="Escolha uma senha válida"></td>
 
 						<td>Bairro:</td>
 						<td><input type="text" id="bairro" name="bairro"
-							value="${user.bairro}"></td>
+							value="${user.bairro}" placeholder="Informe o bairro"></td>
 					</tr>
 
 					<tr>
 						<td>Nome:</td>
 						<td><input type="text" id="nome" name="nome"
-							value="${user.nome}"></td>
+							value="${user.nome}" placeholder="Informe o nome do usuário"></td>
 
 						<td>Cidade:</td>
 						<td><input type="text" id="cidade" name="cidade"
-							value="${user.cidade}"></td>
+							value="${user.cidade}" placeholder="Informe a cidade do usuário"></td>
 					</tr>
 					<tr>
 						<td>Email:</td>
 						<td><input type="text" id="email" name="email"
-							value="${user.email}"></td>
+							value="${user.email}" placeholder="Informe o email do usuário"></td>
 
 						<td>UF:</td>
 						<td><input type="text" id="estado" name="estado"
-							value="${user.estado}"></td>
+							value="${user.estado}" placeholder="Informe o UF do usuário"></td>
 					</tr>
 
 					<tr>
 						<td>Fone:</td>
 						<td><input type="text" id="fone" name="fone"
-							value="${user.fone}"></td>
+							value="${user.fone}" placeholder="Informe um telefone de emergência"></td>
 
 						<td>IBGE:</td>
 						<td><input type="text" id="ibge" name="ibge"
 							value="${user.ibge}"></td>
 					</tr>
+					
+					<tr>
+						<td>Foto:</td>
+						<td><input type="file" name="foto"><input type="text" style="display: none;" name="fotoTemp" readonly="readonly" value="${user.fotoBase64}" ></td>
+					</tr>
+					
+					<tr>
+						<td>Currículo:</td>
+						<td><input type="file" name="curriculo" value="curriculo"></td>
+					</tr>
 
 					<tr>
 						<td></td>
 						<td><input type="submit" value="salvar"
-							onclick="return validarCampos()? true : false;"> <input
+							onclick="return validarCampos()? true : false;"> 
+							<input
 							type="submit" value="Cancelar"
 							onclick="document.getElementById('formUser').action='salvarUsuario?acao=reset'">
 						</td>
 					</tr>
-				</table> <li>
-		
+				</table>
+			<li>
 		</ul>
 	</form>
 
@@ -107,15 +119,12 @@
 			<tr>
 				<th>Id</th>
 				<th>Login</th>
+				<th>Foto</th>
+				<th>Currículo</th>
 				<th>Nome</th>
 				<th>Email</th>
 				<th>Telefone</th>
 				<th>CEP</th>
-				<th>Rua</th>
-				<th>Bairro</th>
-				<th>Cidade</th>
-				<th>Estado</th>
-				<th>IBGE</th>
 				<th>Excluir</th>
 				<th>Editar</th>
 				<th>Fones</th>
@@ -124,35 +133,28 @@
 				<tr>
 					<td style="width: 150px"><c:out value="${user.id}" /></td>
 					<td style="width: 150px"><c:out value="${user.login}" /></td>
+					<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value='${user.temporarioFotoUser}' />" alt="Imagem User" width="32px" height="32px"></a></td>
+					<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">Currículo</a></td>
 					<td><c:out value="${user.nome}" /></td>
 					<td><c:out value="${user.email}" /></td>
 					<td><c:out value="${user.fone}" /></td>
 					<td><c:out value="${user.cep}" /></td>
-					<td><c:out value="${user.rua}" /></td>
-					<td><c:out value="${user.bairro}" /></td>
-					<td><c:out value="${user.cidade}" /></td>
-					<td><c:out value="${user.estado}" /></td>
-					<td><c:out value="${user.ibge}" /></td>
- 
-					<td>
-						<a href="salvarUsuario?acao=delete&user=${user.id}"><img
+
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
 							src="resources/img/excluir.png" alt="Excluir" title="Excluir"
-							width="20px" height="20px"></a>
-					</td>
+							width="20px" height="20px"></a></td>
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
 							src="resources/img/editar.png" alt="Editar" title="Editar"
-							width="20px" height="20px"></a>
-					</td>
-					<td><a href="salvarTelefones?user=${user.id}"><img
+							width="20px" height="20px"></a></td>
+					<td><a href="salvarTelefones?acao=addFone&user=${user.id}"><img
 							src="resources/img/fone.png" alt="Telefones" title="Telefones"
-							width="20px" height="20px"></a>
-					</td>
+							width="20px" height="20px"></a></td>
 
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-	
+
 	<script type="text/javascript">
 		function validarCampos() {
 			if (document.getElementById("login").value == '') {
@@ -201,6 +203,7 @@
 						}
 					});
 		}
-	</script></bo
+	</script>
+	</bo
 			dy>
 </html>

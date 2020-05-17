@@ -44,3 +44,12 @@ ALTER TABLE usuario ADD COLUMN cidade character varying(200);
 ALTER TABLE usuario ADD COLUMN estado character varying(200);
 ALTER TABLE usuario ADD COLUMN ibge character varying(200);
 
+ALTER TABLE public.usuario ADD COLUMN nome character varying(500);
+ALTER TABLE usuario ADD COLUMN contenttype text;
+
+ALTER TABLE usuario ADD COLUMN contentTypeCurriculo text;
+
+ALTER TABLE usuario ADD COLUMN curriculoBase64 text;
+
+
+

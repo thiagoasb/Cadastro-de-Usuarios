@@ -74,7 +74,7 @@
 					
  
 					<td>
-						<a href="salvarUsuario?acao=delete&user=${fone.id}"><img
+						<a href="salvarTelefones?acao=deleteFone&foneId=${fone.id}"><img
 							src="resources/img/excluir.png" alt="Excluir" title="Excluir"
 							width="20px" height="20px"></a>
 					</td>
