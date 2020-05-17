@@ -27,17 +27,22 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BeanCursoJsp beanCursoJsp = new BeanCursoJsp();
-		
-		String login = request.getParameter("login");
-		String senha = request.getParameter("senha");
 		
 		try {
-			if(daoLogin.validarLogin(login, senha)){
-				RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
-				dispatcher.forward(request, response);
+		
+			String login = request.getParameter("login");
+			String senha = request.getParameter("senha");
+			
+			if(login != null && !login.isEmpty() && senha != null && !senha.isEmpty()){
+				if(daoLogin.validarLogin(login, senha)){
+					RequestDispatcher dispatcher = request.getRequestDispatcher("acessoliberado.jsp");
+					dispatcher.forward(request, response);
+				} else {
+					RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+					dispatcher.forward(request, response);
+				}
 			} else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("acessonegado.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 			}
 		} catch (Exception e) {

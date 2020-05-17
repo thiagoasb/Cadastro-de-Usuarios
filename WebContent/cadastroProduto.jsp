@@ -32,7 +32,7 @@
 			
 			<tr>
 				<td>Quantidade</td>
-				<td><input type="text" name="qtde" id="qtde" 
+				<td><input type="number" name="qtde" id="qtde" 
 					value="${prod.quantidade}"></td>
 			</tr>
 			

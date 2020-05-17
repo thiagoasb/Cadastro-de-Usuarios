@@ -51,5 +51,8 @@ ALTER TABLE usuario ADD COLUMN contentTypeCurriculo text;
 
 ALTER TABLE usuario ADD COLUMN curriculoBase64 text;
 
+ALTER TABLE usuario ADD COLUMN fotobase64Miniatura text;
+
+
 
 

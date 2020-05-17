@@ -37,66 +37,74 @@
 						<td>CEP:</td>
 						<td><input type="text" id="cep" name="cep"
 							onblur="consultarCep();" value="${user.cep}"
-							placeholder="Informe um CEP válido"></td>
+							placeholder="Informe um CEP válido" maxlength="9"></td>
 					</tr>
 
 					<tr>
 						<td>Login:</td>
 						<td><input type="text" id="login" name="login"
-							value="${user.login}" placeholder="Escolha um login válido"></td>
+							value="${user.login}" placeholder="Escolha um login válido" maxlength="10"></td>
 
 						<td>Rua:</td>
 						<td><input type="text" id="rua" name="rua"
-							value="${user.rua}" placeholder="Informe a rua do usuário"></td>
+							value="${user.rua}" placeholder="Informe a rua do usuário" maxlength="50"></td>
 					</tr>
 
 					<tr>
 						<td>Senha:</td>
 						<td><input type="password" id="senha" name="senha"
-							value="${user.senha}" placeholder="Escolha uma senha válida"></td>
+							value="${user.senha}" placeholder="Escolha uma senha válida" maxlength="10"></td>
 
 						<td>Bairro:</td>
 						<td><input type="text" id="bairro" name="bairro"
-							value="${user.bairro}" placeholder="Informe o bairro"></td>
+							value="${user.bairro}" placeholder="Informe o bairro" maxlength="50"></td>
 					</tr>
 
 					<tr>
 						<td>Nome:</td>
 						<td><input type="text" id="nome" name="nome"
-							value="${user.nome}" placeholder="Informe o nome do usuário"></td>
+							value="${user.nome}" placeholder="Informe o nome do usuário" maxlength="50"></td>
 
 						<td>Cidade:</td>
 						<td><input type="text" id="cidade" name="cidade"
-							value="${user.cidade}" placeholder="Informe a cidade do usuário"></td>
+							value="${user.cidade}" placeholder="Informe a cidade do usuário" maxlength="50"></td>
 					</tr>
 					<tr>
 						<td>Email:</td>
 						<td><input type="text" id="email" name="email"
-							value="${user.email}" placeholder="Informe o email do usuário"></td>
+							value="${user.email}" placeholder="Informe o email do usuário" maxlength="50"></td>
 
 						<td>UF:</td>
 						<td><input type="text" id="estado" name="estado"
-							value="${user.estado}" placeholder="Informe o UF do usuário"></td>
+							value="${user.estado}" placeholder="Informe o UF do usuário" maxlength="30"></td>
 					</tr>
 
 					<tr>
 						<td>Fone:</td>
 						<td><input type="text" id="fone" name="fone"
-							value="${user.fone}" placeholder="Informe um telefone de emergência"></td>
+							value="${user.fone}" placeholder="Informe um telefone de emergência" maxlength="11"></td>
 
 						<td>IBGE:</td>
-						<td><input type="text" id="ibge" name="ibge"
+						<td><input type="text" id="ibge" name="ibge" maxlength="20"
 							value="${user.ibge}"></td>
 					</tr>
 					
 					<tr>
 						<td>Foto:</td>
-						<td><input type="file" name="foto"><input type="text" style="display: none;" name="fotoTemp" readonly="readonly" value="${user.fotoBase64}" ></td>
+						<td>
+							<input type="file" name="foto">
+							<input type="text" style="display: none;" name="fotoTemp" readonly="readonly" value="${user.fotoBase64}" >
+							<input type="text" style="display: none;" name="contentTypeTemp" readonly="readonly" value="${user.contentType}" >
+						</td>
 					</tr>
 					
 					<tr>
 						<td>Currículo:</td>
-						<td><input type="file" name="curriculo" value="curriculo"></td>
+						<td>
+							<input type="file" name="curriculo" value="curriculo">
+							<input type="text" style="display: none;" name="fotoTempPDF" readonly="readonly" value="${user.curriculoBase64}" >
+							<input type="text" style="display: none;" name="contentTypeTempPDF" readonly="readonly" value="${user.contentTypeCurriculo}" >
+						</td>
 					</tr>
 
 					<tr>
@@ -133,8 +141,21 @@
 				<tr>
 					<td style="width: 150px"><c:out value="${user.id}" /></td>
 					<td style="width: 150px"><c:out value="${user.login}" /></td>
-					<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value='${user.temporarioFotoUser}' />" alt="Imagem User" width="32px" height="32px"></a></td>
-					<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}">Currículo</a></td>
+					
+					<c:if test="${!user.fotoBase64Miniatura.isEmpty() && user.fotoBase64Miniatura != null}">
+						<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value='${user.fotoBase64Miniatura}' />" alt="Imagem User" width="32px" height="32px"></a></td>
+					</c:if>
+					<c:if test="${user.fotoBase64Miniatura.isEmpty() || user.fotoBase64Miniatura == null}">
+						<td><img src="resources/img/userPadrao.png" alt="Imagem User" width="32px" height="32px" onclick="alert('Não possui imagem')"></td>
+					</c:if>
+					
+					<c:if test="${!user.curriculoBase64.isEmpty() && user.curriculoBase64 != null}">
+						<td><a href="salvarUsuario?acao=download&tipo=curriculo&user=${user.id}"><img alt="Curriculo" src="resources/img/pdfdown.png" width="32px" height="32px"></a></td>
+					</c:if>
+					<c:if test="${user.curriculoBase64.isEmpty() || user.curriculoBase64 ==null}">
+						<td><img alt="Curriculo" src="resources/img/pdfdown.png" width="32px" height="32px" onclick="alert('Não possui currículo')"></td>
+					</c:if>
+					
 					<td><c:out value="${user.nome}" /></td>
 					<td><c:out value="${user.email}" /></td>
 					<td><c:out value="${user.fone}" /></td>

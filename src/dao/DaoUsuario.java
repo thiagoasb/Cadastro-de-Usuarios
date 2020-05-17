@@ -24,8 +24,8 @@ public class DaoUsuario {
 	 */
 	public void salvar(BeanCursoJsp usuario){
 		try{
-			String sql = "insert into usuario(login,senha,nome,email,fone,cep,rua,bairro,cidade,estado,ibge,fotobase64,contenttype,curriculobase64,contenttypecurriculo)"
-					+ " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "insert into usuario(login,senha,nome,email,fone,cep,rua,bairro,cidade,estado,ibge,fotobase64,contenttype,curriculobase64,contenttypecurriculo,fotobase64miniatura)"
+					+ " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement insert = connection.prepareStatement(sql);
 			insert.setString(1, usuario.getLogin());
 			insert.setString(2, usuario.getSenha());
@@ -42,6 +42,7 @@ public class DaoUsuario {
 			insert.setString(13, usuario.getContentType());
 			insert.setString(14, usuario.getCurriculoBase64());
 			insert.setString(15, usuario.getContentTypeCurriculo());
+			insert.setString(16, usuario.getFotoBase64Miniatura());
 			insert.execute();
 			connection.commit();
 		}catch(Exception e){
@@ -56,7 +57,7 @@ public class DaoUsuario {
 	public List<BeanCursoJsp> listar() throws Exception{
 		List<BeanCursoJsp> listar = new ArrayList<BeanCursoJsp>();
 		
-		String sql = "select * from usuario order by id desc";
+		String sql = "select * from usuario where login <> 'admin' order by id desc";
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		ResultSet resultSet = statement.executeQuery();
@@ -78,7 +79,8 @@ public class DaoUsuario {
 			beanCursoJsp.setEstado(resultSet.getString("estado"));
 			beanCursoJsp.setIbge(resultSet.getString("ibge"));
 			
-			beanCursoJsp.setFotoBase64(resultSet.getString("fotobase64"));
+			//beanCursoJsp.setFotoBase64(resultSet.getString("fotobase64"));
+			beanCursoJsp.setFotoBase64Miniatura(resultSet.getString("fotoBase64miniatura"));
 			beanCursoJsp.setContentType(resultSet.getString("contenttype"));
 			beanCursoJsp.setCurriculoBase64(resultSet.getString("curriculobase64"));
 			beanCursoJsp.setContentTypeCurriculo(resultSet.getString("contenttypecurriculo"));
@@ -92,7 +94,7 @@ public class DaoUsuario {
 	
 	public void delete (String id){
 		try {
-			String sql = "delete from usuario where id='"+id+"'";
+			String sql = "delete from usuario where id='"+id+"' and login <> 'admin'";
 			PreparedStatement preparedStatement;
 
 			preparedStatement = connection.prepareStatement(sql);
@@ -110,7 +112,7 @@ public class DaoUsuario {
 	}
 	
 	public BeanCursoJsp consultar(String id) throws Exception{
-		String sql = "select * from usuario where id='"+id+"'";
+		String sql = "select * from usuario where id='"+id+"' and login <> 'admin'";
 		
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		ResultSet resultSet = preparedStatement.executeQuery();
@@ -130,6 +132,7 @@ public class DaoUsuario {
 			beanCursoJsp.setEstado(resultSet.getString("estado"));
 			beanCursoJsp.setIbge(resultSet.getString("ibge"));
 			beanCursoJsp.setFotoBase64(resultSet.getString("fotobase64"));
+			beanCursoJsp.setFotoBase64Miniatura(resultSet.getString("fotobase64miniatura"));
 			beanCursoJsp.setContentType(resultSet.getString("contenttype"));
 			beanCursoJsp.setCurriculoBase64(resultSet.getString("curriculobase64"));
 			beanCursoJsp.setContentTypeCurriculo(resultSet.getString("contenttypecurriculo"));
@@ -175,7 +178,7 @@ public class DaoUsuario {
 		String sql = "update usuario set login = ?, senha = ?, nome = ?, email = ?, fone = ?"
 				+ ", cep = ?, rua = ?, bairro = ?, cidade = ?, estado = ?, ibge = ?, "
 				+ "fotobase64 = ?, contenttype = ?, curriculobase64 = ?, "
-				+ "contenttypecurriculo = ?  where id = " + usuario.getId();
+				+ "contenttypecurriculo = ?, fotobase64miniatura =?  where id = " + usuario.getId();
 		
 		try{
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -194,6 +197,7 @@ public class DaoUsuario {
 			preparedStatement.setString(13, usuario.getContentType());
 			preparedStatement.setString(14, usuario.getCurriculoBase64());
 			preparedStatement.setString(15, usuario.getContentTypeCurriculo());
+			preparedStatement.setString(16, usuario.getFotoBase64Miniatura());
 						
 			preparedStatement.executeUpdate();
 			connection.commit();

@@ -5,7 +5,7 @@ public class ProdutoBean {
 	private Long id;
 	private String nome;
 	private Long quantidade;
-	private Double Valor;
+	private Double valor;
 	public Long getId() {
 		return id;
 	}
@@ -25,10 +25,13 @@ public class ProdutoBean {
 		this.quantidade = quantidade;
 	}
 	public Double getValor() {
-		return Valor;
+		return valor;
 	}
 	public void setValor(Double valor) {
-		Valor = valor;
+		valor = valor;
+	}
+	public String getValorEmTexto() {
+		return Double.toString(valor).replace('.',',');
 	}
 	
 	

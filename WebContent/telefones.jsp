@@ -13,13 +13,11 @@
 </head>
 <body>
 
-	<a href="acessoliberado.jsp">Início</a>
-	<a href="index.jsp">Sair</a>
-
 	<center>
 		<h1>Cadastro de Telefones</h1>
 		<h3 style="color: #ff0000">${msg}</h3>
 	</center>
+	
 	<form action="salvarTelefones" method="post" id="formUser">
 		<ul class="form-style-1">
 			<li>
@@ -27,7 +25,7 @@
 				<table>
 					<tr>
 						<td>User:</td>
-						<td><input type="text" readonly="readonly" id="id" name="id"
+						<td><input type="text" readonly="readonly" id="user" name="user"
 							value="${userEscolhido.id}" class="field-long"></td>
 						
 						<td><input type="text" readonly="readonly" id="nome" name="nome"
@@ -38,7 +36,7 @@
 						<td>Número:</td>
 						<td><input type="text" id="numero" name="numero"></td>
 						<td>
-							<select id="tipo" name="tipo">
+							<select id="tipo" name="tipo" style="width: 173px;">
 								<option>Fixo</option>
 								<option>Celular</option>
 								<option>Setor</option>
@@ -47,8 +45,11 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" value="salvar"
+						<td><input type="submit" value="salvar" style="width: 173px;"
 							onclick="return validarCampos()? true : false;"> 
+						</td>
+						<td><input type="submit" value="voltar" style="width: 173px;"
+							onclick="document.getElementById('formUser').action='salvarTelefones?acao=voltar'"> 
 						</td>
 					</tr>
 				</table> <li>
@@ -74,7 +75,7 @@
 					
  
 					<td>
-						<a href="salvarTelefones?acao=deleteFone&foneId=${fone.id}"><img
+						<a href="salvarTelefones?user=${fone.usuario}&acao=deleteFone&foneId=${fone.id}"><img
 							src="resources/img/excluir.png" alt="Excluir" title="Excluir"
 							width="20px" height="20px"></a>
 					</td>
