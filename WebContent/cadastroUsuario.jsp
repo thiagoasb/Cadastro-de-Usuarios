@@ -78,23 +78,11 @@
 						<td><input type="text" id="estado" name="estado"
 							value="${user.estado}" placeholder="Informe o UF do usuário" maxlength="30"></td>
 					</tr>
-
-					<tr>
-						<td>Fone:</td>
-						<td><input type="text" id="fone" name="fone"
-							value="${user.fone}" placeholder="Informe um telefone de emergência" maxlength="11"></td>
-
-						<td>IBGE:</td>
-						<td><input type="text" id="ibge" name="ibge" maxlength="20"
-							value="${user.ibge}"></td>
-					</tr>
 					
 					<tr>
 						<td>Foto:</td>
 						<td>
 							<input type="file" name="foto">
-							<input type="text" style="display: none;" name="fotoTemp" readonly="readonly" value="${user.fotoBase64}" >
-							<input type="text" style="display: none;" name="contentTypeTemp" readonly="readonly" value="${user.contentType}" >
 						</td>
 					</tr>
 					
@@ -102,8 +90,6 @@
 						<td>Currículo:</td>
 						<td>
 							<input type="file" name="curriculo" value="curriculo">
-							<input type="text" style="display: none;" name="fotoTempPDF" readonly="readonly" value="${user.curriculoBase64}" >
-							<input type="text" style="display: none;" name="contentTypeTempPDF" readonly="readonly" value="${user.contentTypeCurriculo}" >
 						</td>
 					</tr>
 
@@ -126,21 +112,16 @@
 			<caption>Usuários cadastrados:</caption>
 			<tr>
 				<th>Id</th>
-				<th>Login</th>
 				<th>Foto</th>
 				<th>Currículo</th>
 				<th>Nome</th>
-				<th>Email</th>
-				<th>Telefone</th>
-				<th>CEP</th>
+				<th>Telefones</th>
 				<th>Excluir</th>
 				<th>Editar</th>
-				<th>Fones</th>
 			</tr>
 			<c:forEach items="${usuarios}" var="user">
 				<tr>
 					<td style="width: 150px"><c:out value="${user.id}" /></td>
-					<td style="width: 150px"><c:out value="${user.login}" /></td>
 					
 					<c:if test="${!user.fotoBase64Miniatura.isEmpty() && user.fotoBase64Miniatura != null}">
 						<td><a href="salvarUsuario?acao=download&tipo=imagem&user=${user.id}"><img src="<c:out value='${user.fotoBase64Miniatura}' />" alt="Imagem User" width="32px" height="32px"></a></td>
@@ -157,19 +138,16 @@
 					</c:if>
 					
 					<td><c:out value="${user.nome}" /></td>
-					<td><c:out value="${user.email}" /></td>
-					<td><c:out value="${user.fone}" /></td>
-					<td><c:out value="${user.cep}" /></td>
-
+					<td><a href="salvarTelefones?acao=addFone&user=${user.id}"><img
+							src="resources/img/fone.png" alt="Telefones" title="Telefones"
+							width="20px" height="20px"></a></td>
 					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
 							src="resources/img/excluir.png" alt="Excluir" title="Excluir"
 							width="20px" height="20px"></a></td>
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img
 							src="resources/img/editar.png" alt="Editar" title="Editar"
 							width="20px" height="20px"></a></td>
-					<td><a href="salvarTelefones?acao=addFone&user=${user.id}"><img
-							src="resources/img/fone.png" alt="Telefones" title="Telefones"
-							width="20px" height="20px"></a></td>
+					
 
 				</tr>
 			</c:forEach>
@@ -190,10 +168,7 @@
 			} else if (document.getElementById("email").value == '') {
 				alert('Informe o email');
 				return false;
-			} else if (document.getElementById("fone").value == '') {
-				alert('Informe o telefone');
-				return false;
-			}
+			} 
 			return true;
 		}
 
@@ -225,6 +200,5 @@
 					});
 		}
 	</script>
-	</bo
-			dy>
+	</body>
 </html>

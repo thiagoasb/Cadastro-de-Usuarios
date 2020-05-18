@@ -40,7 +40,7 @@ public class Usuario extends HttpServlet {
 	// recupera para fazer operacoes como delete, editar...
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String acao = request.getParameter("acao");
+		String acao = request.getParameter("acao") != null ? request.getParameter("acao") : "listartodos";
 		String user = request.getParameter("user");
 
 		try {
@@ -206,8 +206,7 @@ public class Usuario extends HttpServlet {
 						/*Fim miniatura imagem*/
 					
 					} else {
-						usuario.setFotoBase64(request.getParameter("fotoTemp"));
-						usuario.setContentType(request.getParameter("contentTypeTemp"));
+						usuario.setAtualizarImage(false);
 					}
 					
 					/*Processa PDF*/
@@ -219,8 +218,7 @@ public class Usuario extends HttpServlet {
 						usuario.setCurriculoBase64(curriculoBase64);
 						usuario.setContentTypeCurriculo(curriculoPdf.getContentType());
 					} else {
-						usuario.setCurriculoBase64(request.getParameter("fotoTempPDF"));
-						usuario.setContentTypeCurriculo(request.getParameter("contentTypeTempPDF"));
+						usuario.setAtualizarPdf(false);
 					}
 				}
 				
@@ -244,10 +242,6 @@ public class Usuario extends HttpServlet {
 				}
 				else if(email==null || email.isEmpty()){
 					msg = "Por favor, informe seu email";
-					podeInserir = false;
-				}
-				else if(fone==null || fone.isEmpty()){
-					msg = "Por favor, informe o telefone";
 					podeInserir = false;
 				}
 				else if(id==null || id.isEmpty() && !daoUsuario.validarLogin(login)){

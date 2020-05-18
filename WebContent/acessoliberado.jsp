@@ -11,15 +11,16 @@
 </head>
 <body>
 	<jsp:setProperty property="*" name="calcula" />
-
-	<h3>Seja bem vindo ao sistema em jsp</h3>
-
-	<%--salvarUsuario é a url da servlet que sera interceptada --%>
-	<a href="salvarUsuario?acao=listartodos"><img
-		src="resources/img/user.png" alt="Gerenciar usuários"
-		title="Gerenciar usuários" width="40px" height="40px"></a>
-	<a href="produtoServlet?acao=listartodos"><img
-		src="resources/img/box.png" alt="Gerenciar produtos"
-		title="Gerenciar produtos" width="40px" height="40px"></a>
+	<center style="padding-top:10%;">
+		<h1>Bem Vindo ao Sistema!</h1>
+	
+		<%--salvarUsuario é a url da servlet que sera interceptada --%>
+		<a href="salvarUsuario?acao=listartodos"><img
+			src="resources/img/user.png" alt="Gerenciar usuários"
+			title="Gerenciar usuários" width="60px" height="60px"></a>
+		<a href="produtoServlet?acao=listartodos"><img
+			src="resources/img/box.png" alt="Gerenciar produtos"
+			title="Gerenciar produtos" width="60px" height="60px"></a>
+	</center>
 </body>
 </html>
