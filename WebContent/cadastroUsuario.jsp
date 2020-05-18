@@ -1,3 +1,4 @@
+<%@page import="beans.BeanCursoJsp"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -80,9 +81,114 @@
 					</tr>
 					
 					<tr>
+						<td>Sexo:</td>
+						<td>
+							<input type="radio" name="sexo" 
+							<%
+								if(request.getAttribute("user") != null) {
+									BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+									if(user.getSexo().equalsIgnoreCase("masculino")) {
+										out.print(" ");
+										out.print("checked=\"checked\"");
+										out.print(" ");
+									}
+								}
+							%>
+							value="masculino">Masculino</input>
+							<input type="radio" name="sexo" 
+								<%
+									if(request.getAttribute("user") != null) {
+										BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+										if(user.getSexo().equalsIgnoreCase("feminino")) {
+											out.print(" ");
+											out.print("checked=\"checked\"");
+											out.print(" ");
+										}
+									}
+								%>
+							value="feminino">Feminino</input>
+						</td>
+					
+						<td>Ativo:</td>
+						<td><input type="checkbox" id="ativo" name="ativo"
+							<%
+								if(request.getAttribute("user") != null) {
+									BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+									if(user.isAtivo()) {
+										out.print(" ");
+										out.print("checked=\"checked\"");
+										out.print(" ");
+									} 
+								}
+							%>
+						></td>
+					</tr>
+					
+					<tr>
 						<td>Foto:</td>
 						<td>
 							<input type="file" name="foto">
+						</td>
+						
+						<td>Perfil:</td>
+						<td>
+							<select id="perfil" name="perfil" style="width: 185px;">
+								<option value="nao_informado">[--SELECIONE--]</option>
+								
+								<option value="administrador"
+									<%
+										if(request.getAttribute("user") != null) {
+											BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+											if(user.getPerfil().equalsIgnoreCase("administrador")) {
+												out.print(" ");
+												out.print("selected=\"selected\"");
+												out.print(" ");
+											}
+										}
+									%>
+								
+								>Administrador</option>
+								
+								<option value="secretario"
+									<%
+										if(request.getAttribute("user") != null) {
+											BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+											if(user.getPerfil().equalsIgnoreCase("secretario")) {
+												out.print(" ");
+												out.print("selected=\"selected\"");
+												out.print(" ");
+											}
+										}
+									%>
+									
+								>Secretário(a)</option>
+								
+								<option value="gerente"
+									<%
+										if(request.getAttribute("user") != null) {
+											BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+											if(user.getPerfil().equalsIgnoreCase("gerente")) {
+												out.print(" ");
+												out.print("selected=\"selected\"");
+												out.print(" ");
+											}
+										}
+									%>
+								>Gerente</option>
+								
+								<option value="funcionario"
+									<%
+										if(request.getAttribute("user") != null) {
+											BeanCursoJsp user = (BeanCursoJsp) request.getAttribute("user");
+											if(user.getPerfil().equalsIgnoreCase("funcionario")) {
+												out.print(" ");
+												out.print("selected=\"selected\"");
+												out.print(" ");
+											}
+										}
+									%>
+								>Funcionário</option>
+							</select>
 						</td>
 					</tr>
 					
@@ -106,7 +212,21 @@
 			<li>
 		</ul>
 	</form>
-
+	
+	<form method="post" action="servletPesquisa">
+		<ul class="form-style-1">
+			<li>
+				<table>
+					<tr>
+						<td>Descrição:</td>
+						<td><input type="text" id="descricaoconsulta" name="descricaoconsulta"></td>
+						<td><input type="submit" value="Pesquisar"></td>
+					</tr>
+				</table>
+			</li>
+		</ul>
+	</form>
+	
 	<div class="container">
 		<table class="responsive-table">
 			<caption>Usuários cadastrados:</caption>
@@ -141,7 +261,7 @@
 					<td><a href="salvarTelefones?acao=addFone&user=${user.id}"><img
 							src="resources/img/fone.png" alt="Telefones" title="Telefones"
 							width="20px" height="20px"></a></td>
-					<td><a href="salvarUsuario?acao=delete&user=${user.id}"><img
+					<td><a href="salvarUsuario?acao=delete&user=${user.id}" onclick="return confirm('Confirmar a exclusão?');"><img
 							src="resources/img/excluir.png" alt="Excluir" title="Excluir"
 							width="20px" height="20px"></a></td>
 					<td><a href="salvarUsuario?acao=editar&user=${user.id}"><img

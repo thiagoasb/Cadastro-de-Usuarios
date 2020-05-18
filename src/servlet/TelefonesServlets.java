@@ -36,27 +36,35 @@ public class TelefonesServlets extends HttpServlet {
 		try {
 			String acao = request.getParameter("acao");
 			String user = request.getParameter("user");
-			BeanCursoJsp usuario = daoUsuario.consultar(user);
 			
-			if(acao.equalsIgnoreCase("addFone")) {
-					
-				request.getSession().setAttribute("userEscolhido", usuario);
-				request.setAttribute("userEscolhido", usuario);
+			if(user != null) {
+				BeanCursoJsp usuario = daoUsuario.consultar(user);
+				
+				if(acao.equalsIgnoreCase("addFone")) {
+						
+					request.getSession().setAttribute("userEscolhido", usuario);
+					request.setAttribute("userEscolhido", usuario);
+		
+					RequestDispatcher view = request
+							.getRequestDispatcher("/telefones.jsp");
+					request.setAttribute("telefones", daoTelefones.listar(usuario.getId()));
+					view.forward(request, response);
+				} else if (acao.equalsIgnoreCase("deleteFone")) {
+					String foneId = request.getParameter("foneId");
+					daoTelefones.delete(foneId);
 	
+					BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("userEscolhido");
+	
+					RequestDispatcher view = request
+							.getRequestDispatcher("/telefones.jsp");
+					request.setAttribute("telefones", daoTelefones.listar(beanCursoJsp.getId()));
+					request.setAttribute("msg", "Removido com sucesso!");
+					view.forward(request, response);
+				}
+			} else {
 				RequestDispatcher view = request
-						.getRequestDispatcher("/telefones.jsp");
-				request.setAttribute("telefones", daoTelefones.listar(usuario.getId()));
-				view.forward(request, response);
-			} else if (acao.equalsIgnoreCase("deleteFone")) {
-				String foneId = request.getParameter("foneId");
-				daoTelefones.delete(foneId);
-
-				BeanCursoJsp beanCursoJsp = (BeanCursoJsp) request.getSession().getAttribute("userEscolhido");
-
-				RequestDispatcher view = request
-						.getRequestDispatcher("/telefones.jsp");
-				request.setAttribute("telefones", daoTelefones.listar(beanCursoJsp.getId()));
-				request.setAttribute("msg", "Removido com sucesso!");
+						.getRequestDispatcher("/cadastroUsuario.jsp");
+				request.setAttribute("usuarios", daoUsuario.listar());
 				view.forward(request, response);
 			}
 

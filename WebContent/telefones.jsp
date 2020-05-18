@@ -75,7 +75,7 @@
 					
  
 					<td>
-						<a href="salvarTelefones?user=${fone.usuario}&acao=deleteFone&foneId=${fone.id}"><img
+						<a href="salvarTelefones?user=${fone.usuario}&acao=deleteFone&foneId=${fone.id}" onclick="return confirm('Confirmar a exclusão?');"><img
 							src="resources/img/excluir.png" alt="Excluir" title="Excluir"
 							width="20px" height="20px"></a>
 					</td>

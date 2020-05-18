@@ -53,6 +53,12 @@ ALTER TABLE usuario ADD COLUMN curriculoBase64 text;
 
 ALTER TABLE usuario ADD COLUMN fotobase64Miniatura text;
 
+ALTER TABLE public.usuario ADD COLUMN ativo boolean;
+
+ALTER TABLE public.usuario ADD COLUMN sexo character varying(50);
+
+ALTER TABLE public.usuario ADD COLUMN perfil character varying(20);
+
 
 
 
