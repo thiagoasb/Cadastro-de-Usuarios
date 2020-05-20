@@ -16,11 +16,11 @@
 	
 		<%--salvarUsuario é a url da servlet que sera interceptada --%>
 		<a href="salvarUsuario?acao=listartodos"><img
-			src="resources/img/user.png" alt="Gerenciar usuários"
-			title="Gerenciar usuários" width="60px" height="60px"></a>
+			src="resources/img/usuario.jpg" alt="Gerenciar usuários"
+			title="Gerenciar usuários" width="120px" height="120px"></a>
 		<a href="produtoServlet?acao=listartodos"><img
-			src="resources/img/box.png" alt="Gerenciar produtos"
-			title="Gerenciar produtos" width="60px" height="60px"></a>
+			src="resources/img/caixa.png" alt="Gerenciar produtos"
+			title="Gerenciar produtos" width="120px" height="120px"></a>
 	</center>
 </body>
 </html>

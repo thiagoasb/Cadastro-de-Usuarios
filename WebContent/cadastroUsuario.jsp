@@ -22,7 +22,7 @@
 	<a href="index.jsp">Sair</a>
 
 	<center>
-		<h1>Cadastro de usuário</h1>
+		<h1>Cadastro de Usuário</h1>
 		<h3 style="color: #ff0000">${msg}</h3>
 	</center>
 	<form action="salvarUsuario" method="post" id="formUser" enctype="multipart/form-data">
