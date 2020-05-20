@@ -26,7 +26,9 @@
 
 ![bem_vindo](https://user-images.githubusercontent.com/38672183/82370332-c1bee200-99ee-11ea-95fe-3b8477e4e960.png)
 
-3. Terceira página do sistema (cadastrousuario.jsp): tela onde o usuário deverá se cadastrar no sistema, respeitando as validações de cada campo. Também poderá pesquisar por meio do **nome** do usuário, onde aparecerá algumas informações que foram cadastradas no banco, bem como inserir [telefones](#observacao)*, editar, excluir e fazer o download da imagem cadastrada (exibida em miniatura). O usuário tabém terá ícones para voltar a página ou sair do sistema.
+3. Terceira página do sistema (cadastrousuario.jsp): tela onde o usuário deverá se cadastrar no sistema, respeitando as validações de cada campo. Também poderá pesquisar por meio do **nome** do usuário, onde aparecerá algumas informações que foram cadastradas no banco, bem como inserir [telefones](#observacao)*, editar, excluir e fazer o download da imagem (exibida em miniatura) e PDF cadastrados. O usuário tabém terá ícones para voltar a página ou sair do sistema.
+
+3.1. Foi utilizado um Webservice chamado [ViaCEP](https://viacep.com.br/) para consultar  informações com base no Código de Endereçamento Postal (CEP) do Brasil.
 
 ![cadastro](https://user-images.githubusercontent.com/38672183/82370323-c08db500-99ee-11ea-8281-a9121dc41f67.png)
 
