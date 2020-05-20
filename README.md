@@ -1,14 +1,38 @@
 # Cadastro-de-Usuarios
-Projeto que realiza o cadastro de usuários utilizando JSP e banco de dados PostgreSQL.
+>Projeto que realiza o cadastro de usuários utilizando Java 8, JSP e banco de dados PostgreSQL, feito com o objetivo de treinar principais recursos do JSP.
 
-Página onde o usuário loga no sistema.
-![pagina-index](https://user-images.githubusercontent.com/38672183/71551474-749e8d00-29c7-11ea-82ac-61751a4ec4ed.png)
+## Conteúdo
+* [Tecnologias utilizadas](#tecnologias-utilizadas)
+* [Para utilizar](#para-utilizar)
+* [Sobre o Projeto](#sobre-o-projeto)
 
-Caso o login não seja validado aparece a seguinte mensagem na tela:
-![pagina-acesso-negado](https://user-images.githubusercontent.com/38672183/71551496-ce06bc00-29c7-11ea-9aea-ae0525d93673.png)
+## Tecnologias utilizadas
+- [Java 8](https://docs.oracle.com/en/java/)
+- [JavaServer Pages](https://docs.oracle.com/javaee/5/tutorial/doc/bnajo.html)
+- Server: [Apache Tomcat 7](https://tomcat.apache.org/download-70.cgi)
+- Banco de Dados: [PostgreSQL 9.1](https://www.postgresql.org/)
 
-Se for validado abrirá o menu (que por enquanto possui um item):
-![pagina-acesso-liberado](https://user-images.githubusercontent.com/38672183/71551491-c0e9cd00-29c7-11ea-84f7-6d600452f929.png)
+## Para utilizar
+- Verificar se os arquivos .jar (presentes em ./WebContent/WEB-INF/lib foram adicionados ao PATH
+- No pacote.classe: connection.SingleConnection; Verificar URL, user e password referente ao seu banco de dados
+- Fazer backup do banco presente no arquivo sql.sql
 
-Ao clicar no ícone, o sistema irá redirecionar para a página de cadastrar usuários., que vai salvando no banco e mostrando os dados numa tabela exibida logo abaixo dos campos de preechimento.
-![pagina-cadastro-usuario](https://user-images.githubusercontent.com/38672183/71551497-d9f27e00-29c7-11ea-9576-ecf297d03903.png)
+## Sobre o Projeto
+1. Primeira página do sistema (index.jsp): é onde o usuário deverá digitar um login e senha previamente cadastrado no banco de dados ou usar o padrão -> login:admin/senha:admin (que não pode ser alterado pela aplicação). Caso o login/senha for incorreto a aplicação não irá prosseguir.
+
+![index](https://user-images.githubusercontent.com/38672183/82370328-c1264b80-99ee-11ea-86c5-0d06999a7249.png) 
+
+2. Segunda página do sistema (acessoliberado.jsp): tela de acesso liberado ao sistema, onde haverá dois ícones, um para cadastrar usuários e outro para cadastrar produtos(*ainda em construção*).
+
+![bem_vindo](https://user-images.githubusercontent.com/38672183/82370332-c1bee200-99ee-11ea-95fe-3b8477e4e960.png)
+
+3. Terceira página do sistema (cadastrousuario.jsp): tela onde o usuário deverá se cadastrar no sistema, respeitando as validações de cada campo. Também poderá pesquisar por meio do **nome** do usuário, onde aparecerá algumas informações que foram cadastradas no banco, bem como inserir [telefones](#observacao)*, editar, excluir e fazer o download da imagem cadastrada (exibida em miniatura). O usuário tabém terá ícones para voltar a página ou sair do sistema.
+
+![cadastro](https://user-images.githubusercontent.com/38672183/82370323-c08db500-99ee-11ea-8281-a9121dc41f67.png)
+
+<a name="observacao"></a><i>*Observação: tela de telefones permite ao usuário cadastrar telefones.</i>
+![telefone](https://user-images.githubusercontent.com/38672183/82370329-c1bee200-99ee-11ea-8a92-c772d5cb1c8d.png)
+
+
+
+
